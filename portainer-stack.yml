@@ -1,0 +1,37 @@
+version: '3.8'
+
+x-common-env: &common-env
+  DISCORD_TOKEN: ${DISCORD_TOKEN}
+  STANDUP_VOICE_CHANNEL_ID: ${STANDUP_VOICE_CHANNEL_ID}
+  ASYNC_UPDATE_CHANNEL_ID: ${ASYNC_UPDATE_CHANNEL_ID}
+  REPORT_CHANNEL_ID: ${REPORT_CHANNEL_ID}
+  TEAM_MEMBER_IDS: ${TEAM_MEMBER_IDS}
+  TIMEZONE: ${TIMEZONE:-Asia/Dhaka}
+  STANDUP_START_HOUR: ${STANDUP_START_HOUR:-11}
+  STANDUP_START_MINUTE: ${STANDUP_START_MINUTE:-0}
+  STANDUP_END_HOUR: ${STANDUP_END_HOUR:-11}
+  STANDUP_END_MINUTE: ${STANDUP_END_MINUTE:-15}
+  ASYNC_CUTOFF_HOUR: ${ASYNC_CUTOFF_HOUR:-11}
+  ASYNC_CUTOFF_MINUTE: ${ASYNC_CUTOFF_MINUTE:-0}
+  PRECHECK_HOUR: ${PRECHECK_HOUR:-10}
+  PRECHECK_MINUTE: ${PRECHECK_MINUTE:-55}
+
+services:
+  standup-bot:
+    image: tsenseiaskturing/discord-standup-bot:latest
+    deploy:
+      restart_policy:
+        condition: any
+      replicas: 1
+    environment: *common-env
+    volumes:
+      - standup_bot_data:/app/data
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep '[p]ython standup_bot.py' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  standup_bot_data:
