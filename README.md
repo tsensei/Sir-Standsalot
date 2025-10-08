@@ -1,6 +1,10 @@
-# Sir Standsalot 🛡️
+<div align="center">
+  <img src="cover.png" alt="Sir Standsalot Banner" width="100%">
 
-*The noble guardian of your daily standup attendance*
+  # Sir Standsalot 🛡️
+
+  *The noble guardian of your daily standup attendance*
+</div>
 
 A Discord bot of distinguished service, Sir Standsalot keeps vigilant watch over your team's standup ceremonies. With unwavering dedication, he tracks attendance, honors async updates, and chronicles the daily gatherings of your noble fellowship.
 
