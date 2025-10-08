@@ -10,7 +10,7 @@ venv/
 ENV/
 
 # Poetry
-poetry.lock
+# poetry.lock is needed for Docker builds
 
 # Environment
 .env
