@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="cover.png" alt="Sir Standsalot Banner" width="100%">
+  <img src="assets/cover.png" alt="Sir Standsalot Banner" width="100%">
 
   # Sir Standsalot 🛡️
 
