@@ -1,0 +1,20 @@
+[project]
+name = "discord-attendance-bot"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Talha Jubair Siam",email = "talha@askturing.ai"}
+]
+readme = "README.md"
+requires-python = "3.12.6"
+dependencies = [
+    "discord-py (>=2.6.3,<3.0.0)",
+    "pytz (>=2025.2,<2026.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "pynacl (>=1.6.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

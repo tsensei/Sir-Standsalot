@@ -1,0 +1,48 @@
+version: '3.8'
+
+# See wiki/DOCKER.md for complete deployment guide
+
+services:
+  standup-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: discord-standup-bot
+    restart: unless-stopped
+
+    # Environment variables from .env file
+    env_file:
+      - .env
+
+    # Alternative: specify environment variables directly
+    # environment:
+    #   - DISCORD_TOKEN=${DISCORD_TOKEN}
+    #   - STANDUP_VOICE_CHANNEL_ID=${STANDUP_VOICE_CHANNEL_ID}
+    #   - ASYNC_UPDATE_CHANNEL_ID=${ASYNC_UPDATE_CHANNEL_ID}
+    #   - REPORT_CHANNEL_ID=${REPORT_CHANNEL_ID}
+
+    # Mount data directory for persistent attendance records
+    volumes:
+      - ./data:/app/data
+
+    # Optional: Set timezone (if different from default)
+    # environment:
+    #   - TZ=Asia/Dhaka
+
+    # Health check (optional)
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep '[p]ython standup_bot.py' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Resource limits (optional)
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
