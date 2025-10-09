@@ -127,16 +127,24 @@ Yesterday: Code review
 Today: Write tests
 ```
 
-**Invalid formats:**
 ```
-Today:
-Will work on feature X
-(Missing "Yesterday:")
+Yesterday I fixed the bug, today I'll deploy
 ```
 
 ```
 Completed task A yesterday, will do task B today
-(Missing "Yesterday:" and "Today:" keywords)
+```
+
+**Invalid formats:**
+```
+Today:
+Will work on feature X
+(Missing "yesterday" keyword)
+```
+
+```
+Will work on feature X
+(Missing both "yesterday" and "today" keywords)
 ```
 
 ## Report Format

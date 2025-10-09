@@ -98,9 +98,9 @@ class StandupTracker:
                 if message.author.bot:
                     continue
 
-                # Check if message contains "Yesterday:" and "Today:" pattern
+                # Check if message contains "yesterday" and "today" keywords (without colons)
                 content_lower = message.content.lower()
-                if 'yesterday:' in content_lower and 'today:' in content_lower:
+                if 'yesterday' in content_lower and 'today' in content_lower:
                     if message.author.id not in async_updates:
                         messages_matched += 1
                         async_updates[message.author.id] = {
@@ -110,7 +110,7 @@ class StandupTracker:
                         }
                         print(f"   ✅ Found async update from {message.author.display_name}")
                 elif messages_checked <= 3:
-                    print(f"      ❌ Missing Yesterday/Today keywords")
+                    print(f"      ❌ Missing yesterday/today keywords")
 
             print(f"📊 Scanned {messages_checked} messages, found {messages_matched} async updates")
 

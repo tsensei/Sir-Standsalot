@@ -171,7 +171,7 @@ def register_slash_commands(bot):
 
         embed.add_field(
             name="📝 Async Update Format",
-            value="Post messages with:\n```Yesterday:\n<what you did>\n\nToday:\n<what you'll do>```",
+            value="Post messages containing both 'yesterday' and 'today':\n```Yesterday:\n<what you did>\n\nToday:\n<what you'll do>```\n\nOr simply:\n```Yesterday I fixed bugs, today I'll deploy```",
             inline=False
         )
 
