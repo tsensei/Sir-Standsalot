@@ -39,6 +39,20 @@ def register_commands(bot):
         else:
             await ctx.send("⚠️ Standup is already active!")
 
+    @bot.command(name='force_end_standup')
+    @commands.has_permissions(administrator=True)
+    async def force_end_standup(ctx):
+        """Force end the current standup session (Admin only)"""
+        from src.core.utils import end_standup
+
+        if bot.is_standup_active:
+            await ctx.send("🛑 Force ending standup session...")
+            await end_standup(bot)
+            bot.is_standup_active = False
+            await ctx.send("✅ Standup session ended successfully!")
+        else:
+            await ctx.send("ℹ️ No active standup session to end.")
+
     @bot.command(name='attendance')
     async def check_attendance(ctx):
         """Check current standup attendance"""
@@ -150,6 +164,7 @@ def register_commands(bot):
             ("!async_check", "View today's async updates"),
             ("!standup_stats [days]", "Get statistics for last N days (default: 7)"),
             ("!test_standup", "Test standup manually (Admin only)"),
+            ("!force_end_standup", "Force end current standup (Admin only)"),
             ("!help_standup", "Show this help message")
         ]
 

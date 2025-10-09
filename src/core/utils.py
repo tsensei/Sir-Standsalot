@@ -2,7 +2,7 @@ import discord
 import json
 import os
 from datetime import datetime
-from config import TIMEZONE, REPORT_CHANNEL_ID, TEAM_MEMBER_IDS
+from config import TIMEZONE, REPORT_CHANNEL_ID, TEAM_MEMBER_IDS, STANDUP_START_HOUR, STANDUP_START_MINUTE, STANDUP_END_HOUR, STANDUP_END_MINUTE
 
 
 async def start_standup(bot):
@@ -23,13 +23,18 @@ async def start_standup(bot):
     # Initial attendance check
     await bot.tracker.track_attendance()
 
+    # Calculate duration from config
+    start_minutes = STANDUP_START_HOUR * 60 + STANDUP_START_MINUTE
+    end_minutes = STANDUP_END_HOUR * 60 + STANDUP_END_MINUTE
+    duration_minutes = end_minutes - start_minutes
+    
     # Send start notification
     report_channel = bot.get_channel(REPORT_CHANNEL_ID)
     if report_channel:
         embed = discord.Embed(
             title="🎯 Daily Standup Started",
             description=f"**Time:** {bot.tracker.start_time.strftime('%I:%M %p')}\n"
-                       f"**Duration:** 15 minutes\n"
+                       f"**Duration:** {duration_minutes} minutes\n"
                        f"**Status:** Tracking attendance...",
             color=discord.Color.green(),
             timestamp=bot.tracker.start_time

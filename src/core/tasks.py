@@ -25,12 +25,17 @@ def create_tasks(bot):
         if now.weekday() >= 5:
             return
 
+        # Debug logging
+        if bot.is_standup_active:
+            print(f"🕐 Standup active - Current time: {current_time.strftime('%H:%M:%S')}")
+
         # Check if it's standup start time
         if (current_time.hour == STANDUP_START_HOUR and
             current_time.minute == STANDUP_START_MINUTE and
             current_time.second < 30 and
             not bot.is_standup_active):
 
+            print(f"🎯 Starting standup at {current_time.strftime('%H:%M:%S')}")
             bot.is_standup_active = True
             await start_standup(bot)
 
@@ -39,12 +44,12 @@ def create_tasks(bot):
             await bot.tracker.track_attendance()
             print(f"📊 Attendance update: {len(bot.tracker.attendance)} members")
 
-        # Check if it's standup end time
-        elif (current_time.hour == STANDUP_END_HOUR and
-              current_time.minute == STANDUP_END_MINUTE and
-              current_time.second < 30 and
-              bot.is_standup_active):
-
+        # Check if it's standup end time - FIXED: Check if we're past the end time
+        elif (bot.is_standup_active and 
+              (current_time.hour > STANDUP_END_HOUR or 
+               (current_time.hour == STANDUP_END_HOUR and current_time.minute >= STANDUP_END_MINUTE))):
+            
+            print(f"🏁 Ending standup at {current_time.strftime('%H:%M:%S')} (past end time {STANDUP_END_HOUR:02d}:{STANDUP_END_MINUTE:02d})")
             await end_standup(bot)
             bot.is_standup_active = False
 
