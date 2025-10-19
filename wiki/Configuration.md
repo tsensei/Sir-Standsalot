@@ -33,6 +33,14 @@ Complete environment variable reference.
 |----------|------|---------|-------------|
 | `TEAM_MEMBER_IDS` | CSV | Empty | Discord user IDs (comma-separated) |
 
+### Email Configuration
+
+| Variable | Type | Default | Description |
+|----------|------|---------|-------------|
+| `FROM_EMAIL` | String | None | Sender email address |
+| `TO_EMAILS` | CSV | Empty | Recipient emails (comma-separated) |
+| `RESEND_API_KEY` | String | None | Resend API key for sending emails |
+
 ## Getting Values
 
 ### Discord Token
@@ -46,6 +54,12 @@ Complete environment variable reference.
 ### User IDs
 1. Right-click user → Copy User ID
 2. Format: `123456,234567,345678` (comma-separated)
+
+### Email Setup
+1. [Resend Account](https://resend.com) - Sign up for free
+2. Get API key from dashboard
+3. Verify your domain (or use Resend's test domain)
+4. Format: `noreply@yourcompany.com,manager@company.com`
 
 ## Common Timezones
 
@@ -136,6 +150,22 @@ ASYNC_CUTOFF_HOUR=9        # Due 1 hour before
 PRECHECK_HOUR=9
 PRECHECK_MINUTE=55
 TEAM_MEMBER_IDS=111,222,333
+```
+
+### With Email Summaries
+```env
+DISCORD_TOKEN=your_token
+STANDUP_VOICE_CHANNEL_ID=123456789012345678
+ASYNC_UPDATE_CHANNEL_ID=123456789012345678
+REPORT_CHANNEL_ID=123456789012345678
+TIMEZONE=America/New_York
+STANDUP_START_HOUR=9
+STANDUP_START_MINUTE=30
+STANDUP_END_HOUR=9
+STANDUP_END_MINUTE=45
+FROM_EMAIL=noreply@yourcompany.com
+TO_EMAILS=manager@yourcompany.com,team@yourcompany.com,stakeholder@yourcompany.com
+RESEND_API_KEY=re_xxxxxxxxxx
 ```
 
 ## Validation

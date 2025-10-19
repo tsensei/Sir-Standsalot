@@ -13,6 +13,7 @@ A Discord bot of distinguished service, Sir Standsalot keeps vigilant watch over
 - 🎙️ **Guards the Voice Chamber** - Tracks all who attend the standup assembly
 - 📝 **Receives Written Decrees** - Detects async updates in "Yesterday/Today" format
 - 📊 **Chronicles the Proceedings** - Generates detailed attendance reports
+- 📧 **Dispenses Royal Missives** - Sends dev team updates to stakeholders
 - 💾 **Maintains the Records** - Preserves historical data for posterity
 - ⚙️ **Serves with Flexibility** - Fully configurable via environment variables
 

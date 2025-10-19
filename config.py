@@ -40,3 +40,21 @@ else:
     # Empty list if not configured - bot will still work but won't track absences
     TEAM_MEMBER_IDS = []
     print("⚠️  TEAM_MEMBER_IDS not set - absence tracking disabled")
+
+# Email Configuration (Required for email summaries)
+FROM_EMAIL = os.getenv('FROM_EMAIL')
+TO_EMAILS = os.getenv('TO_EMAILS', '')  # Comma-separated list of email addresses
+RESEND_API_KEY = os.getenv('RESEND_API_KEY')
+
+# Parse TO_EMAILS into a list
+if TO_EMAILS:
+    TO_EMAILS_LIST = [email.strip() for email in TO_EMAILS.split(',') if email.strip()]
+else:
+    TO_EMAILS_LIST = []
+    print("⚠️  TO_EMAILS not set - email summaries disabled")
+
+# Validate email configuration
+if not FROM_EMAIL:
+    print("⚠️  FROM_EMAIL not set - email summaries disabled")
+if not RESEND_API_KEY:
+    print("⚠️  RESEND_API_KEY not set - email summaries disabled")

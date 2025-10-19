@@ -3,6 +3,7 @@ import json
 import os
 from datetime import datetime
 from config import TIMEZONE, REPORT_CHANNEL_ID, TEAM_MEMBER_IDS, STANDUP_START_HOUR, STANDUP_START_MINUTE, STANDUP_END_HOUR, STANDUP_END_MINUTE
+from src.core.email_service import EmailService
 
 
 async def start_standup(bot):
@@ -78,6 +79,9 @@ async def end_standup(bot):
 
     # Generate and send report
     await generate_attendance_report(bot)
+
+    # Send email summary
+    await send_email_summary(bot)
 
     # Save records
     await save_attendance_record(bot)
@@ -218,3 +222,16 @@ async def save_attendance_record(bot):
         json.dump(records, f, indent=2)
 
     print(f"💾 Attendance saved to {filename}")
+
+
+async def send_email_summary(bot):
+    """Send email with dev team updates only"""
+    print("\n📧 Sending dev team updates email...")
+    
+    email_service = EmailService()
+    success = await email_service.send_async_updates_email(bot)
+    
+    if success:
+        print("✅ Dev team updates email sent successfully!")
+    else:
+        print("⚠️ Dev team updates email failed or was skipped")
