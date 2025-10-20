@@ -12,9 +12,8 @@ ENV PYTHONUNBUFFERED=1 \
 
 ENV PATH="$POETRY_HOME/bin:$PATH"
 
-# System deps with cache mount for apt
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    apt-get update \
+# System deps
+RUN apt-get update \
     && apt-get install --no-install-recommends -y curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -26,10 +25,8 @@ WORKDIR /app
 # Copy dependency files first for better layer caching
 COPY pyproject.toml poetry.lock ./
 
-# Install dependencies with cache mounts for pip and poetry
-RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=cache,target=/root/.cache/pypoetry \
-    poetry install --no-root --no-dev
+# Install dependencies
+RUN poetry install --no-root --no-dev
 
 # Copy application code
 COPY . .
